@@ -1,0 +1,27 @@
+{
+  "name": "randomknowledge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-webserver": "^0.9.1",
+    "opn": "^5.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timrodenbroeker/randomKnowledge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timrodenbroeker/randomKnowledge/issues"
+  },
+  "homepage": "https://github.com/timrodenbroeker/randomKnowledge#readme"
+}
