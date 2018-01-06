@@ -71,7 +71,8 @@ $(document).ready(function(){
     
     
     }
-		pullStuff("earth","#target"); 
+		pullStuff("Laozi","#target"); 
+        pullStuff("Laozi","#back"); 
   
 });
 
@@ -80,8 +81,16 @@ $(document).ready(function(){
 
 
 $(window).scroll(function() {
+
         var rotation = mapRange(getScrollPercent(), 0,100,0,720);
         var scaling = mapRange(getScrollPercent(), 0,100,1,1);
+        var trigger = Math.floor(mapRange(getScrollPercent(), 0,100,0,720/180));
+
+        console.log(trigger);
+
+    if (trigger % 1 ==0){
+
+    }
 
             $('#plate').css({
                 '-webkit-transform' : 'scale(' + scaling + ') rotateY(' + rotation + 'deg)',
