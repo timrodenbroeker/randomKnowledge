@@ -90,6 +90,15 @@ var trigger = 0;
 function rotator(rotations){
 
         var rotation = mapRange(getScrollPercent(), 0,100,0,rotations*360)+90+180;
+
+        var rotation360 = 0;
+
+        for (var i = 0; i < rotations; i++){
+            rotation360 = rotations * 360 - (rotation - 270 - (i*360));
+        }
+
+        console.log(rotation360);
+
         var scaling = mapRange(getScrollPercent(), 0,100,1,1);
 
         trigger = Math.floor(mapRange(rotation, 0,rotations*360,0,(rotations)*2));
