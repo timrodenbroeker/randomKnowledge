@@ -79,8 +79,13 @@ $(document).ready(function(){
 
 
 
+    
+    
+
+
 
 $(window).scroll(function() {
+
 
         var rotation = mapRange(getScrollPercent(), 0,100,0,720);
         var scaling = mapRange(getScrollPercent(), 0,100,1,1);
