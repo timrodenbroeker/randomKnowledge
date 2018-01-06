@@ -42,7 +42,7 @@ $(document).ready(function(){
                 .replace(/[{()}]/g, '')
                 .replace(/[\u0300-\u036f]/g, "");
 
-            var arr = cleanmarkup.split("|");
+            var arr = cleanmarkup.split(".");
 
             arrWithoutShortSentences = [];
 
