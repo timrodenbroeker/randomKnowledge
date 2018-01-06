@@ -5,7 +5,7 @@ var webserver = require('gulp-webserver');
 var opn       = require('opn');
 
 var sourcePaths = {
-  styles: ['scss/**/*.scss']
+  styles: ['scss/*.scss']
 };
 
 var distPaths = {
