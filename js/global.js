@@ -2,8 +2,6 @@ var markupArray = [];
 
 var trigger = 0;
 
-var scollpos = 0;
-
 var a;
 
 var allLinks; 
