@@ -1,3 +1,53 @@
+var markupArray = [];
+
+var trigger = 0;
+
+var scollpos = 0;
+
+var a;
+
+var allLinks; 
+var body = document.body,
+    html = document.documentElement;
+
+var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+
+var string = window.location.href,
+    substring = "#";
+
+if (string.indexOf(substring) == -1){
+    window.location.href += "#kinshasa"
+} else {
+    console.log('hash');
+}
+
+var term = window.location.href.split('#').pop();
+
+var s = string.split(substring).shift();
+
+
+
+$('a').on("click", function (e) {
+	e.preventDefault();
+	alert('foo');
+	
+
+
+
+	var newLocation = s + "#" + $(this).attr('title');
+
+	window.location.href = newLocation;
+});
+
+function getScrollPercent() {
+    var h = document.documentElement, 
+    b = document.body,
+    st = 'scrollTop',
+    sh = 'scrollHeight';
+    return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+}
 
 
 
@@ -11,13 +61,7 @@ function mapRange(value, low1, high1, low2, high2) {
         return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
 
-
-
-var arrWithoutShortSentences = [];
-
-
-$(document).ready(function(){
-    function pullStuff(keyword, target){
+ function pullStuff(keyword){
  
     $.ajax({
         type: "GET",
@@ -29,39 +73,63 @@ $(document).ready(function(){
  
             var markup = data.parse.text["*"];
 
-            function strip(html){
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
+            // Removing redundant HTML 
+            // -•–•–•–•–•–•-•–•–•–•–•–•-•–•–•–•–•–•
 
-            var cleanmarkup = strip(markup)
-                .replace(/(\r\n|\n|\r)/gm," ")
-                .replace(/\s\s+/g, ' ')
-                .replace(/([.?!])\s*(?=[A-Z])/g, "$1|")
-                .replace(/[{()}]/g, '')
-                .replace(/[\u0300-\u036f]/g, "");
+            // Delete Comments
+            markup = markup.replace(/<!--[\s\S]*?-->/g, '');
+            // markup = markup.replace(/<pre>(.*?)</pre>/g, '');
 
-            var arr = cleanmarkup.split(".");
 
-            arrWithoutShortSentences = [];
+            // Much better: creating a dummy-div and using jquery
+            // https://stackoverflow.com/questions/10585029/parse-a-html-string-with-js
 
-            for(var i = 0; i < arr.length; i++){
+            var el = $( '<div></div>' );
+            el.html(markup);
 
-                if (arr[i].length > 100){
-                    arrWithoutShortSentences.push(arr[i]);
-                }
+            el.find('table').remove();
 
-            }
+            el.find('ul').remove();
 
-            // console.log(arrWithoutShortSentences, arrWithoutShortSentences.length);
+            el.find('ol').remove();
 
-            var randomnt = Math.floor(randomInt(0,arrWithoutShortSentences.length));
+            el.find('img').remove();
 
-            var sentence = arrWithoutShortSentences[randomnt];
+            el.find('span').remove();   
 
-        $(target).append(sentence);         
-            
+            el.find('small').remove();
+
+            el.find('sup').remove();
+
+
+            // now i still have many html-tags inside my paragraphs like <small> etc.
+            // I dont want to delete these elements, i just want to remove the tags
+
+            // The following method converts all HTML into raw text
+            // $(myContent).text()
+
+            // But i want to keep my links, so i have to find another way
+
+
+
+
+            // first i create an array with all paragraphs. 
+            var onlyParagraphs = el.html().match(/\<p\b[\s\S]+?\<\/p\>/g);
+
+            // then i concat them to a string, to ensure that i have only the html between the p-tags
+            a = onlyParagraphs.toString()
+
+
+            // Later: Further reading
+            allLinks = a.match(/\<a\b[\s\S]+?\<\/a\>/g);
+
+        
+            $('.back').append(allLinks);
+
+
+
+            a = a.split('.');
+      
         },
         error: function (errorMessage) {
 
@@ -70,57 +138,79 @@ $(document).ready(function(){
     
     
     }
-        pullStuff("Kinshasa","#target"); 
-
-  
-});
-
-
-function getScrollPercent() {
-    var h = document.documentElement, 
-    b = document.body,
-    st = 'scrollTop',
-    sh = 'scrollHeight';
-    return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-}
-
-var trigger = 0;
 
 
 function rotator(rotations){
 
-        var rotation = mapRange(getScrollPercent(), 0,100,0,rotations*360)+90+180;
+    var scrollY = window.scrollY;
 
-        var rotation360 = 0;
+    var scrollYPercent = mapRange(scrollY,0,height,0,100);
 
-        for (var i = 0; i < rotations; i++){
-            rotation360 = rotations * 360 - (rotation - 270 - (i*360));
-        }
+        // var scaling = mapRange(getScrollPercent(), 0,100,1,1);
 
-        console.log(rotation360);
+        // var rotation = mapRange(scrollY, 0,height,0,rotations*360)+90+180;
 
-        var scaling = mapRange(getScrollPercent(), 0,100,1,1);
+        var rotation = mapRange(getScrollPercent(),0,100,0,rotations*360) + 270;
+
+        
+
 
         trigger = Math.floor(mapRange(rotation, 0,rotations*360,0,(rotations)*2));
 
-        // var style = 'scale(' + scaling + ') rotateY(' + (rotation + 90) + 'deg) rotateX(' + (rotation + 90) + 'deg)';
-        var style = 'scale(' + scaling + ') rotateY(' + (rotation + 90) + 'deg)';
+        if (trigger % 2 == 0){
+            scaling = "-1,-1";
+        } else {
+            scaling = "1,1";    
+        }
 
-        $('#plate').css({
-            '-webkit-transform' : style,
-            '-moz-transform'    : style,
-            '-ms-transform'     : style,
-            '-o-transform'      : style,
-            'transform'         : style
+        
+
+        // var style = 'scale(' + scaling + ') rotateY(' + (rotation + 90) + 'deg) rotateX(' + (rotation + 90) + 'deg)';
+        // var stylePlate = 'rotateY(' + (rotation + 90) + 'deg)' + 'rotateX(' + (rotation + 90) + 'deg)';
+
+        var stylePlate = 'rotateY(' + (rotation + 90) + 'deg)' + 'rotateX(' + (rotation + 90) + 'deg)';
+
+        var styleTarget = 'scale(' + scaling + ')';
+
+
+        $('#target').html(a[trigger]);
+
+           $('#plate').css({
+            '-webkit-transform' : stylePlate,
+            '-moz-transform'    : stylePlate,
+            '-ms-transform'     : stylePlate,
+            '-o-transform'      : stylePlate,
+            'transform'         : stylePlate
         });
 
-        $('#plate').html(arrWithoutShortSentences[trigger]);
+        $('#target').css({
+            '-webkit-transform' : styleTarget,
+            '-moz-transform'    : styleTarget,
+            '-ms-transform'     : styleTarget,
+            '-o-transform'      : styleTarget,
+            'transform'         : styleTarget
+        });
+
+
+        if (trigger % 2 == 0){
+            $('.back').addClass('red');
+        } else {
+            $('.back').removeClass('red');
+        }
 }
 
+pullStuff("kinshasa"); 
 
+var scollpos = 0;
 
+$(document).ready(function(){
 
-    $(window).scroll(function() {
-        rotator(4);
-    });
+	$(window).scroll(function() {
+	    rotator(a.length/2);
+	});
 
+});
+// setInterval(function(){ 
+// 	$( window ).scrollTop( scollpos );
+// 	scollpos+=170;
+// }, 30);

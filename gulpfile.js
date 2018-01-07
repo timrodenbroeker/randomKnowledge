@@ -3,9 +3,15 @@ var plumber   = require('gulp-plumber');
 var sass      = require('gulp-sass');
 var webserver = require('gulp-webserver');
 var opn       = require('opn');
+var uglify = require('gulp-uglify');
+
 
 var sourcePaths = {
   styles: ['scss/*.scss']
+};
+
+var scriptPaths = {
+  styles: ['js/*.js']
 };
 
 var distPaths = {
@@ -16,6 +22,22 @@ var server = {
   host: 'localhost',
   port: '8001'
 }
+
+var concat = require('gulp-concat');
+ 
+gulp.task('scripts', function() {
+  return gulp.src([
+    './js/global.js',
+    './js/routing.js',
+    './js/math.js',
+    './js/api.js',
+    './js/prepareMarkup.js',
+    './js/view.js',
+    './js/main.js'
+    ])
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('./'));
+});
 
 gulp.task('sass', function () {
   gulp.src( sourcePaths.styles )
@@ -40,8 +62,9 @@ gulp.task('openbrowser', function() {
 
 gulp.task('watch', function(){
   gulp.watch(sourcePaths.styles, ['sass']);
+  gulp.watch(scriptPaths.styles, ['scripts']);
 });
 
 gulp.task('build', ['sass']);
 
-gulp.task('default', ['build', 'webserver', 'watch', 'openbrowser']);
+gulp.task('default', ['build', 'scripts', 'webserver', 'watch', 'openbrowser']);

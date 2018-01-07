@@ -1,8 +1,20 @@
+a {
+  text-decoration: none; }
+
+* {
+  box-sizing: border-box; }
+
+body, html {
+  margin: 0;
+  overflow-x: hidden; }
+
+#plate a {
+  color: #ec6b2d; }
+
 body {
-  font-size: calc(16px + 2vw);
-  line-height: 110%;
-  height: 1000vh;
-  font-family: courier; }
+  line-height: 140%;
+  font-family: "roboto mono",monospace;
+  background: #f1f1f1; }
 
 #wrapper {
   perspective: 180vw;
@@ -17,18 +29,53 @@ body {
   align-items: center; }
 
 #plate {
-  width: 80%;
-  height: 80vh;
-  padding: 15px;
-  background: white;
+  font-family: "Roboto Mono";
+  font-size: calc(16px + 7vw);
+  line-height: 120%;
+  width: 90%;
+  height: 85vh;
+  padding: 100px;
+  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center; }
+  text-align: center;
+  z-index: 100; }
 
-#back {
-  top: 0;
-  left: 0;
-  position: fixed;
-  width: 100%;
-  height: 100vh; }
+.back {
+  -webkit-transition: background 1000ms ease;
+  -moz-transition: background 1000ms ease;
+  -ms-transition: background 1000ms ease;
+  -o-transition: background 1000ms ease;
+  transition: background 1000ms ease;
+  min-height: 300vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #635045;
+  padding: 30px; }
+
+.back a {
+  -webkit-transition: color 3000ms ease;
+  -moz-transition: color 3000ms ease;
+  -ms-transition: color 3000ms ease;
+  -o-transition: color 3000ms ease;
+  transition: color 3000ms ease;
+  font-weight: 700;
+  margin: 150px 0;
+  position: relative;
+  z-index: 300;
+  color: #aaaaaa;
+  text-align: center;
+  display: block;
+  font-size: calc(16px + 300vw);
+  line-height: 120%;
+  padding: 15px; }
+
+.back a:hover {
+  color: #ec6b2d; }
+
+.red {
+  background: #2677bb; }
