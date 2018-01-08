@@ -1,3 +1,6 @@
+
+
+
 a {
 	text-decoration: none;
 }
@@ -13,14 +16,16 @@ body, html {
 }
 
 #plate a {
-	color: #ec6b2d;
+	color: #7E5E53;
 }
 
 body {
 	line-height: 140%;
 	// height: 1000vh;
 	font-family: "roboto mono",monospace;
-	background: #f1f1f1;
+	background: #CF624E;
+	color: #CF624E;
+
 }
 
 #wrapper {
@@ -39,7 +44,7 @@ body {
 
 #plate {
 	// overflow: hidden;
-	font-family: "Roboto Mono";
+font-family: 'Fjalla One', sans-serif;
 	font-size: calc(16px + 7vw);
 	line-height: 120%;
 	width: 90%;
@@ -54,39 +59,41 @@ body {
 }
 
 .back {
-
+	width: 100vw;
 	-webkit-transition: background 1000ms ease;
 	-moz-transition: background 1000ms ease;
 	-ms-transition: background 1000ms ease;
 	-o-transition: background 1000ms ease;
 	transition: background 1000ms ease;
-
 	// top: 0;
 	// left: 0;
 	position: relative;
-	
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	height: 10000px;
+	overflow-x: hidden;
+	overflow-y: hidden;
 	align-items: center;
-	background: #635045;
+	background-color: #375383;
 	padding: 30px;
 }
 
 .back a {
+
+	pointer-events: none;
 	-webkit-transition: color 3000ms ease;
 	-moz-transition: color 3000ms ease;
 	-ms-transition: color 3000ms ease;
 	-o-transition: color 3000ms ease;
 	transition: color 3000ms ease;	
 	font-weight: 700;
-	margin: 150px 0;
 	position: relative;
-	z-index: 300;
-	color: #aaaaaa;
+	z-index: 0;
+	width: 100vw;
+	color: #ADAAA2;
 	text-align: center;
 	display: block;
-	font-size: calc(16px + 300vw);
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-size: calc(16px + 120vw);
 	line-height: 120%;
 	padding: 15px;
 }
@@ -100,5 +107,19 @@ body {
 }
 
 .red {
-	background: #2677bb;
+	background: #aaaaaa;
+}
+
+.gradient {
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(255,255,255,0.6) 100%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(255,255,255,0.6) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(255,255,255,0.6) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+}
+
+.gradient2 {
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.6) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.6) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
 }

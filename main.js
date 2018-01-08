@@ -190,11 +190,11 @@ function rotator(rotations){
         });
 
 
-        if (trigger % 2 == 0){
-            $('.back').addClass('red');
-        } else {
-            $('.back').removeClass('red');
-        }
+//         if (trigger % 2 == 0){
+//             $('.back').addClass('red');
+//         } else {
+//             $('.back').removeClass('red');
+//         }
 }
 
 pullStuff("kinshasa"); 
